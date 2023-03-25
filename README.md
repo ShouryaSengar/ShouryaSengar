@@ -11,7 +11,7 @@
 
 - 🌱 I’m currently learning **React , DSA**
 
-- 👨‍💻 All of my projects are available at [https://shouryasinghsengar.github.io/Portfolio/](https://shouryasinghsengar.github.io/Portfolio/)
+- 👨‍💻 All of my projects are available at [https://shouryasengar.github.io/Portfolio/](https://shouryasengar.github.io/Portfolio/)
 
 - 💬 Ask me about **MERN stack , Problem Solving**
 
