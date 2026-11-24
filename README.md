@@ -1,12 +1,8 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venom&height=260&color=0:0f172a,50:1d4ed8,100:06b6d4&text=Shourya%20Singh%20Sengar&fontColor=ffffff&fontSize=46&fontAlignY=40&desc=Software%20Engineer%20%C2%B7%20Mobile%20%C2%B7%20Web%20%C2%B7%20Server-Driven%20Systems&descSize=17&descAlignY=62&animation=twinkling" alt="header" width="100%"/>
+<img src="./assets/header.svg" width="100%" alt="Shourya Singh Sengar, Software Engineer"/>
 
-<a href="https://portfolio-shourya-sengar.vercel.app/">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=20&duration=3000&pause=1000&color=22D3EE&center=true&vCenter=true&width=720&height=40&lines=Building+apps+used+by+100%2C000%2B+people+daily;Server-Driven+UI+%C2%B7+RBAC+%C2%B7+OTA+%C2%B7+Deep+Linking;React+Native+%C2%B7+React+%C2%B7+Node+%C2%B7+GraphQL+%C2%B7+AWS;Exploring+AI-DLC+and+agentic+workflows" alt="typing"/>
-</a>
-
-<br/><br/>
+<br/>
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-Visit-0f172a?style=for-the-badge&logo=vercel&logoColor=white)](https://portfolio-shourya-sengar.vercel.app/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/shourya-singh-57921b146)
@@ -138,5 +134,5 @@ No app-store release needed for a workflow change.
 Ask me about **Server-Driven UI**, **RBAC design**, **React Native at scale**, **GraphQL/Strapi**, or **problem solving**.
 
 <div align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&height=120&color=0:06b6d4,50:1d4ed8,100:0f172a&section=footer" width="100%" alt="footer"/>
+<img src="./assets/footer.svg" width="100%" alt="Thanks for stopping by"/>
 </div>
