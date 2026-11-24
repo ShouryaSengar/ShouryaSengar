@@ -1,0 +1,41 @@
+name: Metrics
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    steps:
+      # 3D contribution calendar (counts private contributions if the token allows it)
+      - uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: ShouryaSengar
+          filename: assets/metrics-calendar.svg
+          base: ""
+          config_timezone: Asia/Kolkata
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+
+      # Overview: header, activity, repositories, community
+      - uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: ShouryaSengar
+          filename: assets/metrics-overview.svg
+          base: header, activity, community, repositories
+          config_timezone: Asia/Kolkata
+          repositories_affiliations: owner
+          plugin_languages: yes
+          plugin_languages_sections: most-used
+          plugin_languages_details: percentage
+          plugin_achievements: yes
+          plugin_achievements_threshold: C
+          plugin_achievements_secrets: no
+          plugin_achievements_display: compact
