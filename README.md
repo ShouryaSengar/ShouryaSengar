@@ -95,6 +95,28 @@ flowchart LR
 No app-store release needed for a workflow change.
 </details>
 
+<details>
+<summary><b>📐 How I'm designing JobPilot (in progress)</b></summary>
+
+```mermaid
+flowchart LR
+    S[Job sources: public ATS APIs, alert emails] --> N[Normalize and dedupe]
+    N --> R[Rank per role profile]
+    R --> D[Twice-daily digest]
+    R --> E[AI-drafted outreach]
+    E --> A{{My approval}}
+    A -->|approved| G[Gmail send, daily cap]
+    A -->|rejected| X[Discard]
+    G --> T[Tracker and follow-ups]
+```
+
+- **Free-tier engineering:** one Cloudflare Worker, D1, Queues and a 15-minute cron, with each step small enough for the 10 ms CPU limit.
+- **Ports and adapters:** AI, email, job sources and storage sit behind interfaces, so the domain code is portable.
+- **Safe by default:** nothing is emailed without explicit approval. Retries are idempotent.
+- **Personal-first, SaaS-ready:** every user-owned row carries an owner id, with no multi-tenant machinery until it is needed.
+
+</details>
+
 <img src="./assets/sections/activity.svg" width="100%" alt="Activity"/>
 
 <div align="center">

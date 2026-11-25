@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="170" viewBox="0 0 900 170">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#111a2e"/></linearGradient>
+<linearGradient id="bd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22d3ee"/><stop offset=".5" stop-color="#6366f1"/><stop offset="1" stop-color="#ec4899"/>
+<animateTransform attributeName="gradientTransform" type="rotate" from="0 .5 .5" to="360 .5 .5" dur="8s" repeatCount="indefinite"/></linearGradient>
+</defs>
+<style>
+text{font-family:'Segoe UI',Ubuntu,Arial,sans-serif}
+.mono{font-family:'JetBrains Mono','SFMono-Regular',Consolas,monospace}
+.title{font-size:15px;font-weight:700;fill:#f8fafc}
+.sub{font-size:11px;fill:#94a3b8}
+.fade{animation:fade .7s ease backwards}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+.lg{font-size:13px;fill:#e2e8f0}.seg{transform-box:fill-box;transform-origin:left;animation:grow .9s ease backwards}@keyframes grow{from{transform:scaleX(0)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<rect x=".8" y=".8" width="898.4" height="168.4" rx="16" fill="url(#bg)"/>
+<rect x=".8" y=".8" width="898.4" height="168.4" rx="16" fill="none" stroke="url(#bd)" stroke-width="1.4"/>
+<g class="fade"><circle cx="30" cy="34" r="5" fill="#a78bfa"/><text x="46" y="39" class="title">Most used languages</text>
+<text x="876" y="39" text-anchor="end" class="sub mono">by code size across my repos</text></g><rect class="seg" x="24.0" y="62" width="471.6" height="14" rx="4" fill="#3178c6" style="animation-delay:0.00s"/><rect class="seg" x="497.6" y="62" width="205.7" height="14" rx="4" fill="#f1e05a" style="animation-delay:0.12s"/><rect class="seg" x="705.2" y="62" width="108.2" height="14" rx="4" fill="#f34b7d" style="animation-delay:0.24s"/><rect class="seg" x="815.4" y="62" width="32.0" height="14" rx="4" fill="#663399" style="animation-delay:0.36s"/><rect class="seg" x="849.4" y="62" width="14.0" height="14" rx="4" fill="#e34c26" style="animation-delay:0.48s"/><rect class="seg" x="865.4" y="62" width="8.6" height="14" rx="4" fill="#3572A5" style="animation-delay:0.60s"/><g class="fade" style="animation-delay:0.40s"><circle cx="29" cy="104" r="5" fill="#3178c6"/><text x="42" y="108" class="lg">TypeScript</text><text x="294" y="108" text-anchor="end" class="sub mono">55.6%</text></g><g class="fade" style="animation-delay:0.48s"><circle cx="319" cy="104" r="5" fill="#f1e05a"/><text x="332" y="108" class="lg">JavaScript</text><text x="584" y="108" text-anchor="end" class="sub mono">24.4%</text></g><g class="fade" style="animation-delay:0.56s"><circle cx="609" cy="104" r="5" fill="#f34b7d"/><text x="622" y="108" class="lg">C++</text><text x="874" y="108" text-anchor="end" class="sub mono">12.9%</text></g><g class="fade" style="animation-delay:0.64s"><circle cx="29" cy="132" r="5" fill="#663399"/><text x="42" y="136" class="lg">CSS</text><text x="294" y="136" text-anchor="end" class="sub mono">4.0%</text></g><g class="fade" style="animation-delay:0.72s"><circle cx="319" cy="132" r="5" fill="#e34c26"/><text x="332" y="136" class="lg">HTML</text><text x="584" y="136" text-anchor="end" class="sub mono">1.9%</text></g><g class="fade" style="animation-delay:0.80s"><circle cx="609" cy="132" r="5" fill="#3572A5"/><text x="622" y="136" class="lg">Python</text><text x="874" y="136" text-anchor="end" class="sub mono">1.2%</text></g>
+</svg>

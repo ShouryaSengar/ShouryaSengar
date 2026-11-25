@@ -1,0 +1,42 @@
+# Generates assets/stats.svg, assets/contributions.svg and assets/languages.svg
+# with scripts/generate_stats.py (Python standard library only, no third-party action).
+# Needs the repo secret METRICS_TOKEN: a classic PAT with `read:user` and `repo`
+# (repo is what makes private contributions and private-repo languages count).
+name: GitHub Stats
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [scripts/generate_stats.py]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats
+  cancel-in-progress: true
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Generate cards
+        run: python3 scripts/generate_stats.py
+        env:
+          GH_TOKEN: ${{ secrets.METRICS_TOKEN }}
+          GH_USER: ${{ github.repository_owner }}
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/stats.svg assets/contributions.svg assets/languages.svg
+          if git diff --cached --quiet; then echo "cards unchanged"; exit 0; fi
+          git commit -m "chore: update stats cards"
+          git pull --rebase -q
+          git push

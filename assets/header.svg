@@ -28,7 +28,7 @@ text{font-family:'Segoe UI',Ubuntu,Arial,sans-serif}
 .in{animation:in .9s ease backwards}@keyframes in{from{opacity:0;transform:translateY(10px)}}
 .sweep{animation:sw 7s linear infinite}@keyframes sw{from{transform:translateX(-200px) skewX(-20deg)}to{transform:translateX(1100px) skewX(-20deg)}}
 .pulse{animation:pl 2s ease-in-out infinite}@keyframes pl{50%{opacity:.3}}
-</style>
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
 <rect x="1" y="1" width="898" height="328" rx="22" fill="url(#bg)"/>
 <g clip-path="url(#card)">
   <g filter="url(#blur)" opacity=".55">
@@ -37,7 +37,7 @@ text{font-family:'Segoe UI',Ubuntu,Arial,sans-serif}
     <circle r="90" fill="#ec4899"><animate attributeName="cx" values="820;640;820" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="60;200;60" dur="8s" repeatCount="indefinite"/></circle>
   </g>
   <rect width="900" height="330" fill="url(#grid)" mask="url(#gm)"/>
-  <text class="tk" x="70" y="80" style="animation-delay:0s">SDUI</text><text class="tk" x="820" y="70" style="animation-delay:1.2s">RBAC</text><text class="tk" x="780" y="250" style="animation-delay:2.1s">{ }</text><text class="tk" x="90" y="280" style="animation-delay:0.7s">&lt;/&gt;</text><text class="tk" x="640" y="40" style="animation-delay:1.8s">OTA</text><text class="tk" x="470" y="300" style="animation-delay:2.6s">S3</text><text class="tk" x="40" y="190" style="animation-delay:3.1s">TS</text><text class="tk" x="860" y="170" style="animation-delay:0.4s">GQL</text>
+  <text class="tk" x="150" y="46" style="animation-delay:0s">SDUI</text><text class="tk" x="820" y="70" style="animation-delay:1.2s">RBAC</text><text class="tk" x="780" y="250" style="animation-delay:2.1s">{ }</text><text class="tk" x="90" y="280" style="animation-delay:0.7s">&lt;/&gt;</text><text class="tk" x="640" y="40" style="animation-delay:1.8s">OTA</text><text class="tk" x="380" y="314" style="animation-delay:2.6s">S3</text><text class="tk" x="40" y="46" style="animation-delay:3.1s">TS</text><text class="tk" x="860" y="170" style="animation-delay:0.4s">GQL</text>
   <rect class="sweep" x="0" y="0" width="70" height="330" fill="#fff" opacity=".04"/>
 </g>
 <!-- monogram -->

@@ -2,7 +2,7 @@
 <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".5" stop-color="#6366f1"/><stop offset="1" stop-color="#ec4899"/></linearGradient>
 <clipPath id="c"><rect width="900" height="110" rx="20"/></clipPath></defs>
 <style>.t{font:600 14px 'JetBrains Mono','SFMono-Regular',Consolas,monospace;fill:#94a3b8}.h{font:700 18px 'Segoe UI',Arial,sans-serif;fill:#f8fafc}
-.w1{animation:m 9s linear infinite}.w2{animation:m 14s linear infinite reverse}@keyframes m{to{transform:translateX(-300px)}}</style>
+.w1{animation:m 9s linear infinite}.w2{animation:m 14s linear infinite reverse}@keyframes m{to{transform:translateX(-300px)}}@media (prefers-reduced-motion:reduce){*{animation:none!important}}</style>
 <rect width="900" height="110" rx="20" fill="#0b1220"/>
 <g clip-path="url(#c)">
 <path class="w2" d="M0 88 q75 -22 150 0 t150 0 t150 0 t150 0 t150 0 t150 0 t150 0 t150 0 t150 0 t150 0 V110 H0Z" fill="#6366f1" fill-opacity=".18"/>

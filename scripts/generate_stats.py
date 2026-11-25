@@ -5,7 +5,7 @@ Env:
   GH_USER    GitHub username (default: ShouryaSengar)
   MOCK=1     use fake data (for local preview)
 """
-import json, os, random, urllib.request, html
+import json, os, random, time, urllib.request, html
 from datetime import date, datetime, timedelta, timezone
 
 USER = os.environ.get("GH_USER", "ShouryaSengar")
@@ -27,15 +27,26 @@ query($login:String!){ user(login:$login){
 }}"""
 
 def fetch():
+    if not TOKEN:
+        raise SystemExit("GH_TOKEN is not set. Set it (or use MOCK=1 for a local preview only).")
     req = urllib.request.Request(
         "https://api.github.com/graphql",
         data=json.dumps({"query": QUERY, "variables": {"login": USER}}).encode(),
         headers={"Authorization": f"bearer {TOKEN}", "Content-Type": "application/json"},
     )
-    with urllib.request.urlopen(req, timeout=30) as r:
-        data = json.load(r)
-    if "errors" in data:
-        raise SystemExit(data["errors"])
+    last = None
+    for attempt in range(3):  # transient API errors should not leave the cards stale
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                data = json.load(r)
+            break
+        except Exception as e:
+            last = e
+            time.sleep(2 * (attempt + 1))
+    else:
+        raise SystemExit(f"GitHub API request failed: {last}")
+    if "errors" in data or not data.get("data", {}).get("user"):
+        raise SystemExit(data.get("errors") or "user not found")
     return data["data"]["user"]
 
 def mock():
@@ -97,6 +108,7 @@ text{{font-family:{FONT}}}
 .fade{{animation:fade .7s ease backwards}}
 @keyframes fade{{from{{opacity:0;transform:translateY(6px)}}}}
 {extra_css}
+@media (prefers-reduced-motion:reduce){{*{{animation:none!important}}}}
 </style>
 <rect x=".8" y=".8" width="{w-1.6}" height="{h-1.6}" rx="16" fill="url(#bg)"/>
 <rect x=".8" y=".8" width="{w-1.6}" height="{h-1.6}" rx="16" fill="none" stroke="url(#bd)" stroke-width="1.4"/>
@@ -113,7 +125,7 @@ def contributions_svg(cal):
     def lvl(n):
         if n == 0: return 0
         return 1 if n <= q[0] else 2 if n <= q[1] else 3 if n <= q[2] else 4
-    rects, months, last_m = [], [], None
+    rects, months, last_m, month_marks = [], [], None, []
     for wi, w in enumerate(weeks):
         for d in w["contributionDays"]:
             dt = date.fromisoformat(d["date"]); row = (dt.weekday() + 1) % 7
@@ -122,7 +134,13 @@ def contributions_svg(cal):
             rects.append(f'<rect class="c" x="{x}" y="{y}" width="{cell}" height="{cell}" rx="3" fill="{colors[L]}" style="animation-delay:{wi*0.025:.2f}s"><title>{d["contributionCount"]} contributions on {d["date"]}</title></rect>')
         first = date.fromisoformat(w["contributionDays"][0]["date"])
         if first.month != last_m and wi < len(weeks) - 2:
-            months.append(f'<text x="{x0 + wi*(cell+gap)}" y="{y0-10}" class="sub mono">{first.strftime("%b")}</text>'); last_m = first.month
+            month_marks.append((wi, first.strftime("%b")))
+            last_m = first.month
+    # a label needs about 3 columns of room: when two collide, keep the later one (the first column is often a stub week)
+    for i, (wi, name) in enumerate(month_marks):
+        if i + 1 < len(month_marks) and month_marks[i + 1][0] - wi < 3:
+            continue
+        months.append(f'<text x="{x0 + wi*(cell+gap)}" y="{y0-10}" class="sub mono">{name}</text>')
     labels = "".join(f'<text x="{x0-10}" y="{y0 + r*(cell+gap) + 10}" text-anchor="end" class="sub mono">{n}</text>' for r, n in ((1, "Mon"), (3, "Wed"), (5, "Fri")))
     legend_x = W - 24 - 5 * 17 - 70
     legend = f'<text x="{legend_x}" y="{H-20}" class="sub mono" text-anchor="end">Less</text>' + "".join(
@@ -142,25 +160,39 @@ def stats_svg(u):
     cc = u["contributionsCollection"]; days = [d for w in cc["contributionCalendar"]["weeks"] for d in w["contributionDays"]]
     cur, longest = streaks(days)
     stars = sum(r["stargazerCount"] for r in u["repositories"]["nodes"])
+    extra = cc["totalPullRequestContributions"] + cc["totalPullRequestReviewContributions"] + cc["totalIssueContributions"]
+    top = top_languages(u, 1)
+    top_name, top_pct = (top[0][0], f"{top[0][2]:.0f}% of code") if top else ("n/a", "")
     tiles = [("⚡", "Contributions", fmt(cc["contributionCalendar"]["totalContributions"]), "last 12 months", "#22d3ee"),
-             ("🔨", "Commits", fmt(cc["totalCommitContributions"]), f'{fmt(cc["totalPullRequestReviewContributions"])} reviews', "#6366f1"),
-             ("🔀", "Pull requests", fmt(cc["totalPullRequestContributions"]), f'{fmt(cc["totalIssueContributions"])} issues', "#a78bfa"),
+             ("🔨", "Commits", fmt(cc["totalCommitContributions"]), f"+{fmt(extra)} PRs, reviews, issues" if extra else "last 12 months", "#6366f1"),
+             ("🧠", "Top language", esc(top_name), top_pct, "#a78bfa"),
              ("🔥", "Current streak", f"{cur}d", f"longest {longest}d", "#f59e0b"),
              ("📦", "Repositories", fmt(u["repositories"]["totalCount"]), f"{fmt(stars)} stars", "#ec4899")]
     W, tw, gap, H = 900, 168, 15, 120
     g = ""
     for i, (ic, t, v, s, c) in enumerate(tiles):
         x = i * (tw + gap)
-        g += f'''<g class="fade" style="animation-delay:{i*.12:.2f}s" transform="translate({x},0)">
+        g += f'''<g transform="translate({x},0)"><g class="fade" style="animation-delay:{i*.12:.2f}s">
 <rect width="{tw}" height="{H-2}" y="1" rx="14" fill="#0b1220" stroke="{c}" stroke-opacity=".5"/>
 <rect width="{tw}" height="{H-2}" y="1" rx="14" fill="url(#g{i})"/>
 <text x="16" y="30" font-size="16">{ic}</text><text x="40" y="29" class="sub">{t}</text>
-<text x="16" y="72" class="big mono">{v}</text>
-<text x="16" y="98" class="sub mono">{s}</text></g>'''
+<text x="16" y="72" class="big mono" style="font-size:{30 if len(v) <= 6 else 20}px">{v}</text>
+<text x="16" y="98" class="sub mono">{s}</text></g></g>'''
     defs = "".join(f'<linearGradient id="g{i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{c}" stop-opacity=".18"/><stop offset="1" stop-color="{c}" stop-opacity="0"/></linearGradient>' for i, (*_, c) in enumerate(tiles))
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}"><defs>{defs}</defs>
 <style>text{{font-family:{FONT}}}.mono{{font-family:{MONO}}}.sub{{font-size:11px;fill:#94a3b8}}.big{{font-size:30px;font-weight:700;fill:#f8fafc}}
-.fade{{animation:fade .7s ease backwards}}@keyframes fade{{from{{opacity:0;transform:translateY(8px)}}}}</style>{g}</svg>'''
+.fade{{animation:fade .7s ease backwards}}@keyframes fade{{from{{opacity:0;transform:translateY(8px)}}}}
+@media (prefers-reduced-motion:reduce){{*{{animation:none!important}}}}</style>{g}</svg>'''
+
+def top_languages(u, n=6):
+    """[(name, color, percent)] by code size, largest first."""
+    tot = {}
+    for r in u["repositories"]["nodes"]:
+        for e in r["languages"]["edges"]:
+            name = e["node"]["name"]; t = tot.setdefault(name, [0, e["node"]["color"] or "#64748b"]); t[0] += e["size"]
+    items = sorted(tot.items(), key=lambda kv: -kv[1][0])[:6]  # same top 6 the language bar shows
+    s = sum(v[0] for _, v in items) or 1
+    return [(name, v[1], v[0] * 100 / s) for name, v in items][:n]
 
 def langs_svg(u):
     tot = {}
