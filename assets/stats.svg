@@ -10,7 +10,7 @@
 <rect width="168" height="118" y="1" rx="14" fill="#0b1220" stroke="#6366f1" stroke-opacity=".5"/>
 <rect width="168" height="118" y="1" rx="14" fill="url(#g1)"/>
 <text x="16" y="30" font-size="16">🔨</text><text x="40" y="29" class="sub">Commits</text>
-<text x="16" y="72" class="big mono" style="font-size:30px">18</text>
+<text x="16" y="72" class="big mono" style="font-size:30px">41</text>
 <text x="16" y="98" class="sub mono">last 12 months</text></g></g><g transform="translate(366,0)"><g class="fade" style="animation-delay:0.24s">
 <rect width="168" height="118" y="1" rx="14" fill="#0b1220" stroke="#a78bfa" stroke-opacity=".5"/>
 <rect width="168" height="118" y="1" rx="14" fill="url(#g2)"/>
