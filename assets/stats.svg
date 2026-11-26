@@ -5,18 +5,18 @@
 <rect width="168" height="118" y="1" rx="14" fill="#0b1220" stroke="#22d3ee" stroke-opacity=".5"/>
 <rect width="168" height="118" y="1" rx="14" fill="url(#g0)"/>
 <text x="16" y="30" font-size="16">⚡</text><text x="40" y="29" class="sub">Contributions</text>
-<text x="16" y="72" class="big mono" style="font-size:30px">58</text>
+<text x="16" y="72" class="big mono" style="font-size:30px">62</text>
 <text x="16" y="98" class="sub mono">last 12 months</text></g></g><g transform="translate(183,0)"><g class="fade" style="animation-delay:0.12s">
 <rect width="168" height="118" y="1" rx="14" fill="#0b1220" stroke="#6366f1" stroke-opacity=".5"/>
 <rect width="168" height="118" y="1" rx="14" fill="url(#g1)"/>
 <text x="16" y="30" font-size="16">🔨</text><text x="40" y="29" class="sub">Commits</text>
-<text x="16" y="72" class="big mono" style="font-size:30px">52</text>
+<text x="16" y="72" class="big mono" style="font-size:30px">56</text>
 <text x="16" y="98" class="sub mono">last 12 months</text></g></g><g transform="translate(366,0)"><g class="fade" style="animation-delay:0.24s">
 <rect width="168" height="118" y="1" rx="14" fill="#0b1220" stroke="#a78bfa" stroke-opacity=".5"/>
 <rect width="168" height="118" y="1" rx="14" fill="url(#g2)"/>
 <text x="16" y="30" font-size="16">🧠</text><text x="40" y="29" class="sub">Top language</text>
 <text x="16" y="72" class="big mono" style="font-size:20px">TypeScript</text>
-<text x="16" y="98" class="sub mono">57% of code</text></g></g><g transform="translate(549,0)"><g class="fade" style="animation-delay:0.36s">
+<text x="16" y="98" class="sub mono">58% of code</text></g></g><g transform="translate(549,0)"><g class="fade" style="animation-delay:0.36s">
 <rect width="168" height="118" y="1" rx="14" fill="#0b1220" stroke="#f59e0b" stroke-opacity=".5"/>
 <rect width="168" height="118" y="1" rx="14" fill="url(#g3)"/>
 <text x="16" y="30" font-size="16">🔥</text><text x="40" y="29" class="sub">Current streak</text>
